@@ -1,0 +1,53 @@
+%%%%%% Data Generation %%%%%%
+
+The first part of the project is data generation, to do this run [DataGen.m] matlab file which will run [Project_RFT_DataGen2020a.slx] simulink file. 
+It will generate 10000 samples of inputs and outputs.
+
+
+
+%%%%%% Training %%%%%% 
+
+The second part of the project is to do training, first run [normalization.m] matlab file to get inputs, and normalized output for DNN, 
+then run [trainingDNN.m] matlab file to get the trained model as a function saved in [Identification_function.m] matlab function.
+
+
+
+
+%%%%%% ControllerClassification %%%%%%
+
+The third part of the project is to do Controller classification based on the identified system. The first step is to generate
+ a table of 1000 system parameters. Run [data_for_gains_generation.m] matlab file, then to get the optimal parameter for each 
+system run the loop of fminsearch which is in [gains_generation.m] matlab file.  The controller classification function is 
+[controller_update.m] matlab function, and this fuction calls 10 other functions based on the T2 values, which are [T2_1.m] [T2_2.m] [T2_3.m] [T2_4.m] [T2_5.m]
+[T2_6.m] [T2_7.m] [T2_8.m] [T2_9.m] [T2_10.m]. Then each T2 function has 10 values  of tau, and each tau has 10 values of T1, thus 1000 combinations.  
+
+
+
+%%%%%% Testing the DNN %%%%%%
+
+To test the DNN, 2500 unique samples, outside the training data were generated, run [DataGen2500.slx] to generate 2500 new testing samples which will be saved in 
+[Input_test.mat]  and [Output_test.mat].[Input_test.mat] are the system parameters while [Output_test.mat] are the inputs to DNN, i.e., it is the concatenated error and relay output vector. 
+Then run them in the DNN function using [testing.m] matlab file. These results are organized in a table in [Book1.xlsx] excel file.
+
+
+
+%%%%%% Final model %%%%%%
+
+In this part the system identification and controller classification will operate together, a random input signal of error and realy output
+are taken from one of the 2500 testing samples to the Identification block, then to the controller block. First to get the input sample 
+run [geting_input_to_FullModel.m] matlab file in this file you can choose any sample number. Then run [FullModel.slx] to do system 
+identification and controller classification. 
+
+
+
+
+%%%%%% Testing the stability of the Ginal Model %%%%%%              
+
+In this step we will check if the DNN model and controller classification is giving a stable control or not. run [outputsKPandKD.m] 
+matlab file to save the Kp and Kd to a variables. Then run [simulation_model_PD_tuning.slx]. 
+
+
+
+%%%%%% Note %%%%%%
+
+In case there is an error in any m file or simulink file, kindly clear the workspace and rerun the program or codes. 
